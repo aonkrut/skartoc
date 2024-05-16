@@ -52,24 +52,9 @@
     padding: 40vw 0;
   }
   </style>
-  <script>
-  function openModal(imageUrl) {
-    var modalImage = document.getElementById("modalImage");
-    modalImage.src = imageUrl;
-    $('#imageModal').modal('show');
-    //mogućnost odbacivanje modala klikom na sliku
-    modalImage.onclick = function() {
-      $('#imageModal').modal('hide');
-    }
-    //mogućnost odbacivanje modala klikom na gumb x
-    $('#imageModal').on('hidden.bs.modal', function() {
-      modalImage.src = "";
-    });
-  
-  }
-</script>
+
 </head>
-<body>
+<body onload="postaviPozdrav()">
 <?php 
     include "spajanje.php";
 include("nav.php");
@@ -78,9 +63,10 @@ include("nav.php");
 <div class="container-fluid container-bg" id="#" style="padding-top: 100px;">
     <div class="container">
       <div class="row">
-        <div class="col-md-6">
+      <div class="col-md-6">
           <h1 class="display-4" style="font-family: 'Lobster', cursive; color:white;">Škartoc ljubavi</h1>
-          <p class="lead" style="font-family: 'Raleway', cursive; color:white;">Prvi street food truck u Međimurju.</p>
+          <p id="pozdrav" class="lead" style="font-family: 'Raleway', cursive; color:white;">Pozdrav!</p>
+
         </div>
       </div>
     </div>
@@ -290,6 +276,34 @@ include("nav.php");
     <a href="https://www.instagram.com/skartocljubavi/" target="_blank" class="text-white"><i class="fa fa-instagram fa-lg mx-3"></i></a>
   </div>
 </footer>
+<script>
+  function openModal(imageUrl) {
+    var modalImage = document.getElementById("modalImage");
+    modalImage.src = imageUrl;
+    $('#imageModal').modal('show');
+    //mogućnost odbacivanje modala klikom na sliku
+    modalImage.onclick = function() {
+      $('#imageModal').modal('hide');
+    }
+    //mogućnost odbacivanje modala klikom na gumb x
+    $('#imageModal').on('hidden.bs.modal', function() {
+      modalImage.src = "";
+    });
+  
+  }
 
+  function postaviPozdrav() {
+    var ime = document.cookie.split('; ').find(row => row.startsWith('ime')).split('=')[1];
+    var pozdravParagraf = document.getElementById("pozdrav");
+    if (ime) {
+      pozdravParagraf.textContent = "Dobrodošli natrag, " + ime + "!";
+    } else {
+      pozdravParagraf.textContent = "Dobrodošli!";
+    }
+  }
+
+  // Pozivamo funkciju odmah nakon učitavanja stranice
+  window.onload = postaviPozdrav;
+</script>
 </body>
 </html>
